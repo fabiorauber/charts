@@ -71,6 +71,12 @@ infoblox:
   wapiConnectionPoolSize: ""
   wapiHttpTimeout: ""
 
+# Support for PowerDNS provider
+pdns:
+  # Required
+  server: ""
+  apiKey: ""
+
 ## Limit possible target zones by domain suffixes (optional)
 domainFilters: []
 ## Limit possible target zones by zone id (optional)

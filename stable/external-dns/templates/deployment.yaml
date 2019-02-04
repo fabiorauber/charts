@@ -93,6 +93,14 @@ spec:
             - --infoblox-ssl-verify
             {{- end }}
           {{- end }}
+          {{- if eq .Values.provider "pdns" }}
+            {{- if .Values.pdns.server }}
+            - --pdns-server={{ .Values.pdns.server }}
+            {{- end }}
+            {{- if .Values.pdns.apiKey }}
+            - --pdns-api-key={{ .Values.pdns.apiKey }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
           {{- if or .Values.google.serviceAccountSecret .Values.google.serviceAccountKey }}
           - name: google-service-account

@@ -166,8 +166,6 @@ pvc:
     s3Storage:
       region: sa-east-1
       bucketName: sei-arquivos-externos
-  certsStorage:
-    storageRequest: 100Mi
 
 # Postgresql database configuration
 postgresql: 

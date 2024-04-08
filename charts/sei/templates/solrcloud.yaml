@@ -1,0 +1,55 @@
+{{- if .Values.solr.enabled }}
+apiVersion: solr.apache.org/v1beta1
+kind: SolrCloud
+metadata:
+  name: seisolr
+spec:
+  dataStorage:
+    persistent:
+      reclaimPolicy: {{ .Values.solr.persistence.reclaimPolicy }}
+      pvcTemplate:
+        spec:
+          resources:
+            requests:
+              storage: {{ .Values.solr.persistence.size | quote }}
+  replicas: {{ .Values.solr.replicas }}
+  solrImage:
+    tag: {{ .Values.solr.image.tag }}
+  solrJavaMem: {{ .Values.solr.javaMem | quote }}
+  solrGCTune: {{ .Values.solr.gcTune | quote }}
+  customSolrKubeOptions:
+    podOptions:
+      {{- with .Values.solr.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.solr.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      resources:
+      {{- toYaml .Values.solr.resources | nindent 8 }}
+  solrAddressability:
+    podPort: 10000
+    commonServicePort: 80
+  zookeeperRef:
+    provided:
+      persistence:
+        spec:
+          resources:
+            requests:
+              storage: {{ .Values.solr.zookeeper.persistence.size | quote }}
+      replicas: {{ .Values.solr.zookeeper.replicas }}
+      zookeeperPodPolicy:
+        {{- with .Values.solr.zookeeper.tolerations }}
+        tolerations:
+        {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.solr.zookeeper.nodeSelector }}
+        nodeSelector:
+        {{- toYaml . | nindent 10 }}
+        {{- end }}
+        resources:
+        {{- toYaml .Values.solr.zookeeper.resources | nindent 10 }}
+
+{{- end }}

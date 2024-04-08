@@ -1,0 +1,615 @@
+apiVersion: batch/v1
+kind: CronJob 
+metadata:
+  name: {{ include "sei.fullname" . }}-app-agendador
+  labels:
+    {{- include "sei.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.app.agendador.schedule | quote }}
+  concurrencyPolicy: {{ .Values.app.agendador.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.app.agendador.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.app.agendador.successfulJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            {{- include "sei.selectorLabels" . | nindent 12 }}
+        spec:
+          restartPolicy: "Never"
+          containers:
+            - command:
+                - /entrypoint-agendador.sh
+              env:
+                - name: APP_DB_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_HOST
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_PORTA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_PORTA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_ROOT_PASSWORD
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_ROOT_PASSWORD
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_ROOT_USERNAME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_ROOT_USERNAME
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SEI_BASE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SEI_BASE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SEI_PASSWORD
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SEI_PASSWORD
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SEI_USERNAME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SEI_USERNAME
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SIP_BASE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SIP_BASE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SIP_PASSWORD
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SIP_PASSWORD
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_SIP_USERNAME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_SIP_USERNAME
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_DB_TIPO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_DB_TIPO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_FONTES_GIT_CHECKOUT
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_FONTES_GIT_CHECKOUT
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_FONTES_GIT_PATH
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_FONTES_GIT_PATH
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_FONTES_GIT_PRIVKEY_BASE64
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_FONTES_GIT_PRIVKEY_BASE64
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_HOST
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_AUTENTICAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_AUTENTICAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_CODIFICACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_CODIFICACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_MAXDESTINATARIOS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_MAXDESTINATARIOS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_MAXTAMANHOANEXOSMB
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_MAXTAMANHOANEXOSMB
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_PORTA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_PORTA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_PROTEGIDO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_PROTEGIDO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_SEGURANCA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_SEGURANCA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_SENHA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_SENHA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_SERVIDOR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_SERVIDOR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_TIPO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_TIPO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MAIL_USUARIO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MAIL_USUARIO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_MEMCACHED_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_MEMCACHED_HOST
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_NOMECOMPLEMENTO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_NOMECOMPLEMENTO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_ORGAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_ORGAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_ORGAO_DESCRICAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_ORGAO_DESCRICAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_PROTOCOLO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_PROTOCOLO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SEI_CHAVE_ACESSO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SEI_CHAVE_ACESSO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SIP_CHAVE_ACESSO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SIP_CHAVE_ACESSO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_CORE_BASECONHECIMENTO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_CORE_BASECONHECIMENTO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_CORE_PROTOCOLOS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_CORE_PROTOCOLOS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_CORE_PUBLICACOES
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_CORE_PUBLICACOES
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_TEMPO_COMMIT_BASECONHECIMENTO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_TEMPO_COMMIT_BASECONHECIMENTO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_TEMPO_COMMIT_PROTOCOLOS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_TEMPO_COMMIT_PROTOCOLOS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_TEMPO_COMMIT_PUBLICACOES
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_TEMPO_COMMIT_PUBLICACOES
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: APP_SOLR_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: APP_SOLR_URL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_CLIENTID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_CLIENTID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_SECRET
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_SECRET
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_URLPROVIDER
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_URLPROVIDER
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_URL_SERVICOS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_URL_SERVICOS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ASSINATURAVANCADA_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ASSINATURAVANCADA_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ESTATISTICAS_CHAVE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ESTATISTICAS_CHAVE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ESTATISTICAS_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ESTATISTICAS_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ESTATISTICAS_SIGLA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ESTATISTICAS_SIGLA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ESTATISTICAS_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ESTATISTICAS_URL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_ESTATISTICAS_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_ESTATISTICAS_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_GESTAODOCUMENTAL_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_GESTAODOCUMENTAL_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_GESTAODOCUMENTAL_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_GESTAODOCUMENTAL_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_INCLUSAOPUBLICACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_INCLUSAOPUBLICACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_PASSWS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_PASSWS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_SERIEID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_SERIEID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_SIORG
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_SIORG
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_URLWS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_URLWS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_USERWS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_USERWS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_VEICULOID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_VEICULOID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_INCOM_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_INCOM_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_CIENTIDVALIDACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_CIENTIDVALIDACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_CLIENTID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_CLIENTID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_ORGAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_ORGAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_REDIRECTURL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_REDIRECTURL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_SCOPE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_SCOPE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_SECRET
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_SECRET
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_SECRETVALIDACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_SECRETVALIDACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_URLLOGOUT
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_URLLOGOUT
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_URLPROVIDER
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_URLPROVIDER
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_URLREVALIDACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_URLREVALIDACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_URLSERVICOS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_URLSERVICOS
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_LOGINUNICO_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_LOGINUNICO_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_CERTIFICADO_BASE64
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_CERTIFICADO_BASE64
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_CERTIFICADO_SENHA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_CERTIFICADO_SENHA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_GEARMAN_IP
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_GEARMAN_IP
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_GEARMAN_PORTA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_GEARMAN_PORTA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_QTD_WORKER_PROC
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_QTD_WORKER_PROC
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_REPOSITORIO_ORIGEM
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_REPOSITORIO_ORIGEM
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_TIPO_PROCESSO_EXTERNO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_TIPO_PROCESSO_EXTERNO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_UNIDADE_ASSOCIACAO_PEN
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_UNIDADE_ASSOCIACAO_PEN
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_UNIDADE_ASSOCIACAO_SEI
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_UNIDADE_ASSOCIACAO_SEI
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_UNIDADE_GERADORA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_UNIDADE_GERADORA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PEN_WEBSERVICE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PEN_WEBSERVICE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PETICIONAMENTO_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PETICIONAMENTO_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PETICIONAMENTO_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PETICIONAMENTO_URL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PETICIONAMENTO_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PETICIONAMENTO_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_EMAIL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_EMAIL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_SENHA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_SENHA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_URL
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_USUARIO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_USUARIO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_PI_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_PI_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_RESPOSTA_DOCUMENTO_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_RESPOSTA_DOCUMENTO_ID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_RESPOSTA_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_RESPOSTA_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_RESPOSTA_SISTEMA_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_RESPOSTA_SISTEMA_ID
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_RESPOSTA_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_RESPOSTA_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_CHAVE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_CHAVE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_ID_APP
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_ID_APP
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_TOKEN_SECRET
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_TOKEN_SECRET
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_URL_NOTIFICACAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_URL_NOTIFICACAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: MODULO_REST_VERSAO
+                  valueFrom:
+                    configMapKeyRef:
+                      key: MODULO_REST_VERSAO
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: OPENLDAP_ADMIN_PASSWORD
+                  valueFrom:
+                    configMapKeyRef:
+                      key: OPENLDAP_ADMIN_PASSWORD
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: OPENLDAP_DESLIGAR_NO_ORGAO_0
+                  valueFrom:
+                    configMapKeyRef:
+                      key: OPENLDAP_DESLIGAR_NO_ORGAO_0
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: OPENLDAP_PRESENTE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: OPENLDAP_PRESENTE
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SERVICO_PD_INSTALAR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SERVICO_PD_INSTALAR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SERVICO_PD_NOME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SERVICO_PD_NOME
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SERVICO_PD_OPERACOES
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SERVICO_PD_OPERACOES
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SERVICO_PD_SIGLA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SERVICO_PD_SIGLA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SIP_EMAIL_ADMINISTRADOR
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SIP_EMAIL_ADMINISTRADOR
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: SIP_EMAIL_SISTEMA
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SIP_EMAIL_SISTEMA
+                      name: {{ include "sei.fullname" . }}-local-env
+                - name: KUBERNETES_CLUSTER_DOMAIN
+                  value: {{ quote .Values.kubernetesClusterDomain }}
+              image: {{ .Values.app.image.repository }}:{{ .Values.app.image.tag | default .Chart.AppVersion }}
+              name: app-agendador
+              resources: {}
+              volumeMounts:
+              - mountPath: /sei/arquivos_externos_sei
+                name: arquivosexternos-storage
+          volumes:
+            - name: arquivosexternos-storage
+              persistentVolumeClaim:
+                claimName: {{ include "sei.fullname" . }}-arquivosexternos-storage

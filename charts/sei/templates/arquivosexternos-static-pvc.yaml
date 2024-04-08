@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sei.fullname" . }}-arquivosexternos-storage
+  labels:
+    io.kompose.service: arquivosexternos-storage
+  {{- include "sei.labels" . | nindent 4 }}
+spec:
+  accessModes:
+  - ReadWriteMany
+  {{- if eq .Values.pvc.arquivosexternosStorage.storageClass "s3-storage-class" }}
+  storageClassName: "" # required for static provisioning
+  volumeName: {{ include "sei.fullname" . }}-arquivosexternos-s3-pv
+  {{- else }}
+  storageClassName: {{ .Values.pvc.arquivosexternosStorage.storageClass | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.arquivosexternosStorage.storageRequest | quote }}

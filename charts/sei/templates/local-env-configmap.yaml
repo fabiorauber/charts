@@ -1,0 +1,168 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sei.fullname" . }}-local-env
+  labels:
+    io.kompose.service: app-local-env
+  {{- include "sei.labels" . | nindent 4 }}
+data:
+  APP_DB_HOST: {{ .Values.localEnv.appDbHost | quote }}
+  APP_DB_PORTA: {{ .Values.localEnv.appDbPorta | quote }}
+  APP_DB_ROOT_PASSWORD: {{ .Values.localEnv.appDbRootPassword | quote }}
+  APP_DB_ROOT_USERNAME: {{ .Values.localEnv.appDbRootUsername | quote }}
+  APP_DB_SEI_BASE: {{ .Values.localEnv.appDbSeiBase | quote }}
+  APP_DB_SEI_PASSWORD: {{ .Values.localEnv.appDbSeiPassword | quote }}
+  APP_DB_SEI_USERNAME: {{ .Values.localEnv.appDbSeiUsername | quote }}
+  APP_DB_SIP_BASE: {{ .Values.localEnv.appDbSipBase | quote }}
+  APP_DB_SIP_PASSWORD: {{ .Values.localEnv.appDbSipPassword | quote }}
+  APP_DB_SIP_USERNAME: {{ .Values.localEnv.appDbSipUsername | quote }}
+  APP_DB_TIPO: {{ .Values.localEnv.appDbTipo | quote }}
+  APP_FONTES_GIT_CHECKOUT: {{ .Values.localEnv.appFontesGitCheckout | quote }}
+  APP_FONTES_GIT_PATH: {{ .Values.localEnv.appFontesGitPath | quote }}
+  APP_FONTES_GIT_PRIVKEY_BASE64: {{ .Values.localEnv.appFontesGitPrivkeyBase64 |
+    quote }}
+  APP_HOST: {{ .Values.localEnv.appHost | quote }}
+  APP_MAIL_AUTENTICAR: {{ .Values.localEnv.appMailAutenticar | quote }}
+  APP_MAIL_CODIFICACAO: {{ .Values.localEnv.appMailCodificacao | quote }}
+  APP_MAIL_MAXDESTINATARIOS: {{ .Values.localEnv.appMailMaxdestinatarios | quote
+    }}
+  APP_MAIL_MAXTAMANHOANEXOSMB: {{ .Values.localEnv.appMailMaxtamanhoanexosmb | quote
+    }}
+  APP_MAIL_PORTA: {{ .Values.localEnv.appMailPorta | quote }}
+  APP_MAIL_PROTEGIDO: {{ .Values.localEnv.appMailProtegido | quote }}
+  APP_MAIL_SEGURANCA: {{ .Values.localEnv.appMailSeguranca | quote }}
+  APP_MAIL_SENHA: {{ .Values.localEnv.appMailSenha | quote }}
+  APP_MAIL_SERVIDOR: {{ .Values.localEnv.appMailServidor | quote }}
+  APP_MAIL_TIPO: {{ .Values.localEnv.appMailTipo | quote }}
+  APP_MAIL_USUARIO: {{ .Values.localEnv.appMailUsuario | quote }}
+  APP_MEMCACHED_HOST: {{ .Values.localEnv.appMemcachedHost | quote }}
+  APP_NOMECOMPLEMENTO: {{ .Values.localEnv.appNomecomplemento | quote }}
+  APP_ORGAO: {{ .Values.localEnv.appOrgao | quote }}
+  APP_ORGAO_DESCRICAO: {{ .Values.localEnv.appOrgaoDescricao | quote }}
+  APP_PROTOCOLO: {{ .Values.localEnv.appProtocolo | quote }}
+  APP_SEI_CHAVE_ACESSO: {{ .Values.localEnv.appSeiChaveAcesso | quote }}
+  APP_SIP_CHAVE_ACESSO: {{ .Values.localEnv.appSipChaveAcesso | quote }}
+  APP_SOLR_CORE_BASECONHECIMENTO: {{ .Values.localEnv.appSolrCoreBaseconhecimento
+    | quote }}
+  APP_SOLR_CORE_PROTOCOLOS: {{ .Values.localEnv.appSolrCoreProtocolos | quote }}
+  APP_SOLR_CORE_PUBLICACOES: {{ .Values.localEnv.appSolrCorePublicacoes | quote }}
+  APP_SOLR_TEMPO_COMMIT_BASECONHECIMENTO: {{ .Values.localEnv.appSolrTempoCommitBaseconhecimento
+    | quote }}
+  APP_SOLR_TEMPO_COMMIT_PROTOCOLOS: {{ .Values.localEnv.appSolrTempoCommitProtocolos
+    | quote }}
+  APP_SOLR_TEMPO_COMMIT_PUBLICACOES: {{ .Values.localEnv.appSolrTempoCommitPublicacoes
+    | quote }}
+  APP_SOLR_URL: {{ .Values.localEnv.appSolrUrl | quote }}
+  MODULO_ASSINATURAVANCADA_CLIENTID: {{ .Values.localEnv.moduloAssinaturavancadaClientid
+    | quote }}
+  MODULO_ASSINATURAVANCADA_INSTALAR: {{ .Values.localEnv.moduloAssinaturavancadaInstalar
+    | quote }}
+  MODULO_ASSINATURAVANCADA_SECRET: {{ .Values.localEnv.moduloAssinaturavancadaSecret
+    | quote }}
+  MODULO_ASSINATURAVANCADA_URL_SERVICOS: {{ .Values.localEnv.moduloAssinaturavancadaUrlServicos
+    | quote }}
+  MODULO_ASSINATURAVANCADA_URLPROVIDER: {{ .Values.localEnv.moduloAssinaturavancadaUrlprovider
+    | quote }}
+  MODULO_ASSINATURAVANCADA_VERSAO: {{ .Values.localEnv.moduloAssinaturavancadaVersao
+    | quote }}
+  MODULO_ESTATISTICAS_CHAVE: {{ .Values.localEnv.moduloEstatisticasChave | quote
+    }}
+  MODULO_ESTATISTICAS_INSTALAR: {{ .Values.localEnv.moduloEstatisticasInstalar |
+    quote }}
+  MODULO_ESTATISTICAS_SIGLA: {{ .Values.localEnv.moduloEstatisticasSigla | quote
+    }}
+  MODULO_ESTATISTICAS_URL: {{ .Values.localEnv.moduloEstatisticasUrl | quote }}
+  MODULO_ESTATISTICAS_VERSAO: {{ .Values.localEnv.moduloEstatisticasVersao | quote
+    }}
+  MODULO_GESTAODOCUMENTAL_INSTALAR: {{ .Values.localEnv.moduloGestaodocumentalInstalar
+    | quote }}
+  MODULO_GESTAODOCUMENTAL_VERSAO: {{ .Values.localEnv.moduloGestaodocumentalVersao
+    | quote }}
+  MODULO_INCOM_INCLUSAOPUBLICACAO: {{ .Values.localEnv.moduloIncomInclusaopublicacao
+    | quote }}
+  MODULO_INCOM_INSTALAR: {{ .Values.localEnv.moduloIncomInstalar | quote }}
+  MODULO_INCOM_PASSWS: {{ .Values.localEnv.moduloIncomPassws | quote }}
+  MODULO_INCOM_SERIEID: {{ .Values.localEnv.moduloIncomSerieid | quote }}
+  MODULO_INCOM_SIORG: {{ .Values.localEnv.moduloIncomSiorg | quote }}
+  MODULO_INCOM_URLWS: {{ .Values.localEnv.moduloIncomUrlws | quote }}
+  MODULO_INCOM_USERWS: {{ .Values.localEnv.moduloIncomUserws | quote }}
+  MODULO_INCOM_VEICULOID: {{ .Values.localEnv.moduloIncomVeiculoid | quote }}
+  MODULO_INCOM_VERSAO: {{ .Values.localEnv.moduloIncomVersao | quote }}
+  MODULO_LOGINUNICO_CIENTIDVALIDACAO: {{ .Values.localEnv.moduloLoginunicoCientidvalidacao
+    | quote }}
+  MODULO_LOGINUNICO_CLIENTID: {{ .Values.localEnv.moduloLoginunicoClientid | quote
+    }}
+  MODULO_LOGINUNICO_INSTALAR: {{ .Values.localEnv.moduloLoginunicoInstalar | quote
+    }}
+  MODULO_LOGINUNICO_ORGAO: {{ .Values.localEnv.moduloLoginunicoOrgao | quote }}
+  MODULO_LOGINUNICO_REDIRECTURL: {{ .Values.localEnv.moduloLoginunicoRedirecturl
+    | quote }}
+  MODULO_LOGINUNICO_SCOPE: {{ .Values.localEnv.moduloLoginunicoScope | quote }}
+  MODULO_LOGINUNICO_SECRET: {{ .Values.localEnv.moduloLoginunicoSecret | quote }}
+  MODULO_LOGINUNICO_SECRETVALIDACAO: {{ .Values.localEnv.moduloLoginunicoSecretvalidacao
+    | quote }}
+  MODULO_LOGINUNICO_URLLOGOUT: {{ .Values.localEnv.moduloLoginunicoUrllogout | quote
+    }}
+  MODULO_LOGINUNICO_URLPROVIDER: {{ .Values.localEnv.moduloLoginunicoUrlprovider
+    | quote }}
+  MODULO_LOGINUNICO_URLREVALIDACAO: {{ .Values.localEnv.moduloLoginunicoUrlrevalidacao
+    | quote }}
+  MODULO_LOGINUNICO_URLSERVICOS: {{ .Values.localEnv.moduloLoginunicoUrlservicos
+    | quote }}
+  MODULO_LOGINUNICO_VERSAO: {{ .Values.localEnv.moduloLoginunicoVersao | quote }}
+  MODULO_PEN_CERTIFICADO_BASE64: {{ .Values.localEnv.moduloPenCertificadoBase64 |
+    quote }}
+  MODULO_PEN_CERTIFICADO_SENHA: {{ .Values.localEnv.moduloPenCertificadoSenha | quote
+    }}
+  MODULO_PEN_GEARMAN_IP: {{ .Values.localEnv.moduloPenGearmanIp | quote }}
+  MODULO_PEN_GEARMAN_PORTA: {{ .Values.localEnv.moduloPenGearmanPorta | quote }}
+  MODULO_PEN_INSTALAR: {{ .Values.localEnv.moduloPenInstalar | quote }}
+  MODULO_PEN_QTD_WORKER_PROC: {{ .Values.localEnv.moduloPenQtdWorkerProc | quote
+    }}
+  MODULO_PEN_REPOSITORIO_ORIGEM: {{ .Values.localEnv.moduloPenRepositorioOrigem |
+    quote }}
+  MODULO_PEN_TIPO_PROCESSO_EXTERNO: {{ .Values.localEnv.moduloPenTipoProcessoExterno
+    | quote }}
+  MODULO_PEN_UNIDADE_ASSOCIACAO_PEN: {{ .Values.localEnv.moduloPenUnidadeAssociacaoPen
+    | quote }}
+  MODULO_PEN_UNIDADE_ASSOCIACAO_SEI: {{ .Values.localEnv.moduloPenUnidadeAssociacaoSei
+    | quote }}
+  MODULO_PEN_UNIDADE_GERADORA: {{ .Values.localEnv.moduloPenUnidadeGeradora | quote
+    }}
+  MODULO_PEN_VERSAO: {{ .Values.localEnv.moduloPenVersao | quote }}
+  MODULO_PEN_WEBSERVICE: {{ .Values.localEnv.moduloPenWebservice | quote }}
+  MODULO_PETICIONAMENTO_INSTALAR: {{ .Values.localEnv.moduloPeticionamentoInstalar
+    | quote }}
+  MODULO_PETICIONAMENTO_URL: {{ .Values.localEnv.moduloPeticionamentoUrl | quote
+    }}
+  MODULO_PETICIONAMENTO_VERSAO: {{ .Values.localEnv.moduloPeticionamentoVersao |
+    quote }}
+  MODULO_PI_EMAIL: {{ .Values.localEnv.moduloPiEmail | quote }}
+  MODULO_PI_INSTALAR: {{ .Values.localEnv.moduloPiInstalar | quote }}
+  MODULO_PI_SENHA: {{ .Values.localEnv.moduloPiSenha | quote }}
+  MODULO_PI_URL: {{ .Values.localEnv.moduloPiUrl | quote }}
+  MODULO_PI_USUARIO: {{ .Values.localEnv.moduloPiUsuario | quote }}
+  MODULO_PI_VERSAO: {{ .Values.localEnv.moduloPiVersao | quote }}
+  MODULO_RESPOSTA_DOCUMENTO_ID: {{ .Values.localEnv.moduloRespostaDocumentoId | quote
+    }}
+  MODULO_RESPOSTA_INSTALAR: {{ .Values.localEnv.moduloRespostaInstalar | quote }}
+  MODULO_RESPOSTA_SISTEMA_ID: {{ .Values.localEnv.moduloRespostaSistemaId | quote
+    }}
+  MODULO_RESPOSTA_VERSAO: {{ .Values.localEnv.moduloRespostaVersao | quote }}
+  MODULO_REST_CHAVE: {{ .Values.localEnv.moduloRestChave | quote }}
+  MODULO_REST_ID_APP: {{ .Values.localEnv.moduloRestIdApp | quote }}
+  MODULO_REST_INSTALAR: {{ .Values.localEnv.moduloRestInstalar | quote }}
+  MODULO_REST_TOKEN_SECRET: {{ .Values.localEnv.moduloRestTokenSecret | quote }}
+  MODULO_REST_URL_NOTIFICACAO: {{ .Values.localEnv.moduloRestUrlNotificacao | quote
+    }}
+  MODULO_REST_VERSAO: {{ .Values.localEnv.moduloRestVersao | quote }}
+  OPENLDAP_ADMIN_PASSWORD: {{ .Values.localEnv.openldapAdminPassword | quote }}
+  OPENLDAP_DESLIGAR_NO_ORGAO_0: {{ .Values.localEnv.openldapDesligarNoOrgao0 | quote
+    }}
+  OPENLDAP_PRESENTE: {{ .Values.localEnv.openldapPresente | quote }}
+  SERVICO_PD_INSTALAR: {{ .Values.localEnv.servicoPdInstalar | quote }}
+  SERVICO_PD_NOME: {{ .Values.localEnv.servicoPdNome | quote }}
+  SERVICO_PD_OPERACOES: {{ .Values.localEnv.servicoPdOperacoes | quote }}
+  SERVICO_PD_SIGLA: {{ .Values.localEnv.servicoPdSigla | quote }}
+  SIP_EMAIL_ADMINISTRADOR: {{ .Values.localEnv.sipEmailAdministrador | quote }}
+  SIP_EMAIL_SISTEMA: {{ .Values.localEnv.sipEmailSistema | quote }}

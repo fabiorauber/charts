@@ -22,8 +22,8 @@ jobs:
         with:
           version: v3.11.2
 
-      - name: Add plone repository
-        run: helm repo add plone https://planbsb.github.io/charts
+      - name: Add helm repository
+        run: helm repo add planbsb https://planbsb.github.io/charts
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0

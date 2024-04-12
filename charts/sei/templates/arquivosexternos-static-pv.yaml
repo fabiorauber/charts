@@ -10,6 +10,9 @@ spec:
     - ReadWriteMany
   mountOptions:
     - allow-delete
+    - uid=48
+    - gid=48
+    - allow-other
     - region {{ .Values.pvc.arquivosexternosStorage.s3Storage.region }}
   csi:
     driver: s3.csi.aws.com # required

@@ -213,7 +213,7 @@ solr:
     reclaimPolicy: Retain
     size: "50Gi"
   image:
-    tag: 9.5.0
+    tag: 8.11.3
   javaMem: "-Xms2g -Xmx2g"
   gcTune: "-XX:SurvivorRatio=4 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=8"
   tolerations: []

@@ -3,6 +3,25 @@ entries:
   sei:
   - apiVersion: v2
     appVersion: 4.0.9
+    created: "2024-04-17T14:03:38.93506864Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.2.2
+    - condition: memcached.enabled
+      name: memcached
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.10.1
+    description: Sistema Eletrônico de Informações (SEI)
+    digest: 57f55f188ae03bbdf3c240c0e59913c73211b69852c9939ab37c62ba9779385b
+    name: sei
+    type: application
+    urls:
+    - https://github.com/planbsb/charts/releases/download/sei-0.1.2/sei-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 4.0.9
     created: "2024-04-12T12:59:17.222839552Z"
     dependencies:
     - condition: postgresql.enabled
@@ -39,4 +58,4 @@ entries:
     urls:
     - https://github.com/planbsb/charts/releases/download/sei-0.1.0/sei-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T12:59:17.222852396Z"
+generated: "2024-04-17T14:03:38.935087906Z"

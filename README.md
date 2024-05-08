@@ -1,3 +1,3 @@
-# Plan TI Public Helm Charts
+# Fabio Rauber Public Helm Charts
 
-Public Helm Charts from Plan TI (https://planbsb.com).
+Public Helm Charts, from https://github.com/fabiorauber.
